@@ -14,11 +14,12 @@ body {
     min-height: 100vh;
     background-color: #2c2c2e;
     max-width: 900px;
-    margin: 0 auto;
-    border-radius: 20px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    margin: 20px auto;
+    border-radius: 24px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     overflow: hidden;
     animation: slideIn 0.5s ease-out;
+    padding: 20px;
 }
 
 @keyframes slideIn {
@@ -33,12 +34,40 @@ body {
 }
 
 .app-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     background-color: #2c2c2e;
     color: #e5e5ea;
     padding: 1rem;
     text-align: center;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
-    border-bottom: 1px solid #ffffff; /* Line under the header */
+    border-bottom: 1px solid #ffffff;
+}
+
+.app-header h1 {
+    margin: 0;
+    font-size: 1.5rem;
+}
+
+.search-input {
+    padding: 0.5rem;
+    border: 1px solid #48484a;
+    border-radius: 8px;
+    background-color: #3a3a3c;
+    color: #e5e5ea;
+    font-size: 0.875rem;
+    width: 200px;
+    outline: none;
+    transition: border-color 0.3s;
+}
+
+.search-input::placeholder {
+    color: #b9b9b9;
+}
+
+.search-input:focus {
+    border-color: #007aff;
 }
 
 .app-main {
@@ -55,20 +84,20 @@ body {
 .add-note-btn {
     background-color: #2c2c2e;
     color: #ffffff;
-    border: 2px solid #ffffff; /* Adds a white border */
+    border: 2px solid #ffffff;
     border-radius: 12px;
-    padding: 0.75rem 3rem; /* Increased padding for a longer button */
-    font-size: 1rem; /* Font size */
+    padding: 0.75rem 3rem;
+    font-size: 1rem;
     cursor: pointer;
-    margin: 0 auto; /* Centers the button horizontally */
-    display: block; /* Ensures the button takes up full width when centered */
+    margin: 0 auto;
+    display: block;
     transition: background-color 0.3s, transform 0.2s, border-color 0.3s;
 }
 
 .add-note-btn:hover {
-    background-color:#2c2c2e;
+    background-color: #2c2c2e;
     transform: scale(1.05);
-    border-color: #e5e5ea; 
+    border-color: #e5e5ea;
 }
 
 .notes-section {
@@ -215,7 +244,6 @@ body {
     color: #e5e5ea;
     padding: 1rem;
     text-align: center;
-    box-shadow: 0 -1px 3px rgba(0, 0, 0, 0.4);
     border-top: 1px solid #ffffff;
 }
 
@@ -225,72 +253,18 @@ body {
 }
 
 .footer-links {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
     margin-bottom: 0.5rem;
-}
-
-.footer-icon {
-    display: inline-block;
-    margin: 0 0.5rem;
 }
 
 .footer-icon img {
     width: 24px;
     height: 24px;
-    vertical-align: middle;
-    transition: transform 0.3s;
-}
-
-.footer-icon img:hover {
-    transform: scale(1.1);
 }
 
 .footer-text {
     margin: 0;
     font-size: 0.875rem;
-    color: #b9b9b9;
-}
-
-@media (max-width: 768px) {
-    .note-item {
-        flex: 1 1 100%;
-    }
-
-    .modal-content {
-        width: 95%;
-    }
-}
-
-@media (max-width: 480px) {
-    .note-item {
-        font-size: 0.875rem;
-        padding: 0.75rem;
-    }
-
-    .note-item h3 {
-        font-size: 1rem;
-    }
-
-    .note-item p {
-        font-size: 0.875rem;
-    }
-
-    .modal-content {
-        width: 100%;
-        padding: 1rem;
-    }
-
-    .add-note-btn {
-        font-size: 0.875rem;
-        padding: 0.5rem;
-    }
-
-    .footer-icon img {
-        width: 20px;
-        height: 20px;
-    }
-
-    .footer-text {
-        font-size: 0.75rem;
-    }
-    
 }

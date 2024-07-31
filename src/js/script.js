@@ -1,77 +1,82 @@
-// Define the custom elements for note form and note item
 class NoteForm extends HTMLElement {
     constructor() {
         super();
         this.attachShadow({ mode: 'open' });
         this.shadowRoot.innerHTML = `
             <style>
-                   .note-form {
+                form {
                     display: flex;
                     flex-direction: column;
-                    gap: 0.5rem;
-                    background-color: #ffffff;
-                    border-radius: 8px;
-                    padding: 1rem;
-                    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2), 
-                    0 24px 48px rgba(0, 0, 0, 0.2);
+                    gap: 1rem;
                 }
-                .note-form input, .note-form textarea {
-                    border: 1px solid #ddd;
-                    border-radius: 5px;
-                    padding: 0.75rem;
+                input, textarea {
+                    padding: 0.5rem;
+                    border: 1px solid #48484a;
+                    border-radius: 8px;
+                    background-color: #3a3a3c;
+                    color: #e5e5ea;
                     font-size: 1rem;
                 }
-                .note-form button {
-                    background-color: #2c2c2e;
-                    color: #ffffff;
+                input:invalid, textarea:invalid {
+                    border-color: #ff3b30; /* Red border for invalid inputs */
+                }
+                button {
+                    padding: 0.5rem;
                     border: none;
-                    border-radius: 5px;
-                    padding: 0.75rem;
+                    border-radius: 8px;
+                    background-color: #007aff;
+                    color: #ffffff;
                     font-size: 1rem;
                     cursor: pointer;
+                    transition: background-color 0.3s, transform 0.2s;
                 }
-                .note-form button:hover {
-                    background-color:#2c2c2e;
-                    border-color: #e5e5ea; 
-                    
+                button:hover {
+                    background-color: #0051a2;
+                    transform: scale(1.05);
                 }
             </style>
-            <form class="note-form">
-                <input type="text" id="note-title" placeholder="Title" required>
-                <textarea id="note-body" placeholder="Note content" required></textarea>
-                <button type="submit" disabled>Add Note</button>
+            <form>
+                <input type="text" name="title" placeholder="Title" required>
+                <textarea name="body" placeholder="Note" rows="5" required></textarea>
+                <button type="submit">Add Note</button>
             </form>
         `;
 
         this.form = this.shadowRoot.querySelector('form');
-        this.titleInput = this.shadowRoot.querySelector('#note-title');
-        this.bodyInput = this.shadowRoot.querySelector('#note-body');
-        this.submitButton = this.shadowRoot.querySelector('button');
+        this.titleInput = this.shadowRoot.querySelector('input[name="title"]');
+        this.bodyTextarea = this.shadowRoot.querySelector('textarea[name="body"]');
 
-        this.form.addEventListener('submit', (e) => {
-            e.preventDefault();
-            const title = this.titleInput.value;
-            const body = this.bodyInput.value;
+        this.titleInput.addEventListener('input', this.validateInput.bind(this));
+        this.bodyTextarea.addEventListener('input', this.validateInput.bind(this));
+
+        this.form.addEventListener('submit', this.handleSubmit.bind(this));
+    }
+
+    validateInput(event) {
+        const input = event.target;
+        if (!input.validity.valid) {
+            input.classList.add('invalid');
+        } else {
+            input.classList.remove('invalid');
+        }
+    }
+
+    handleSubmit(event) {
+        event.preventDefault();
+        const title = this.titleInput.value;
+        const body = this.bodyTextarea.value;
+
+        if (this.form.checkValidity()) {
             this.dispatchEvent(new CustomEvent('add-note', {
                 detail: { title, body },
                 bubbles: true,
                 composed: true
             }));
-            this.form.reset();
-            this.submitButton.disabled = true;
-        });
-
-        this.titleInput.addEventListener('input', this.validateForm.bind(this));
-        this.bodyInput.addEventListener('input', this.validateForm.bind(this));
-    }
-
-    validateForm() {
-        const titleValid = this.titleInput.value.trim().length > 0;
-        const bodyValid = this.bodyInput.value.trim().length > 0;
-
-        this.submitButton.disabled = !(titleValid && bodyValid);
+        }
     }
 }
+
+customElements.define('note-form', NoteForm);
 
 class NoteItem extends HTMLElement {
     constructor() {
@@ -97,63 +102,63 @@ class NoteItem extends HTMLElement {
         const archived = this.getAttribute('archived') === 'true';
 
         this.shadowRoot.innerHTML = `
-             <style>
+            <style>
                 .note-item {
-    background-color: #2c2c2e;
-    border-radius: 8px;
-    padding: 1rem;
-    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2), 
-    0 24px 48px rgba(0, 0, 0, 0.2);
-    flex: 1 1 calc(33.333% - 1rem);
-    margin-bottom: 1rem;
-    display: flex;
-    flex-direction: column;
-    transition: transform 0.3s;
-}
-.note-item:hover {
-    transform: scale(1.05);
-}
-.note-item h3 {
-    margin: 0;
-    font-size: 1.25rem;
-    color: #ffffff;
-}
-.note-item p {
-    margin: 0.5rem 0;
-    color: #ffffff;
-}
-.note-item .note-controls {
-    margin-top: auto;
-    display: flex;
-    gap: 0.5rem;
-}
-.note-item button {
-    background-color: #2c2c2e;
-    color: #ffffff;
-    border: 1px solid transparent;
-    border-radius: 5px;
-    padding: 0.5rem 1rem;
-    font-size: 0.875rem;
-    cursor: pointer;
-    transition: border-color 0.3s;
-}
-.note-item button:hover {
-    border-color: #ffffff;
-}
-.note-item button.archive {
-    background-color: #2c2c2e;
-    border-color: #e5e5ea;
-}
-.note-item button.archive:hover {
-    border-color: #ffffff;
-}
-.note-item button.delete {
-    background-color: #2c2c2e;
-    border-color: #ffffff; 
-}
-.note-item button.delete:hover {
-    border-color: #ffffff;
-}
+                    background-color: #2c2c2e;
+                    border-radius: 8px;
+                    padding: 1rem;
+                    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2), 
+                    0 24px 48px rgba(0, 0, 0, 0.2);
+                    flex: 1 1 calc(33.333% - 1rem);
+                    margin-bottom: 1rem;
+                    display: flex;
+                    flex-direction: column;
+                    transition: transform 0.3s;
+                }
+                .note-item:hover {
+                    transform: scale(1.05);
+                }
+                .note-item h3 {
+                    margin: 0;
+                    font-size: 1.25rem;
+                    color: #ffffff;
+                }
+                .note-item p {
+                    margin: 0.5rem 0;
+                    color: #ffffff;
+                }
+                .note-item .note-controls {
+                    margin-top: auto;
+                    display: flex;
+                    gap: 0.5rem;
+                }
+                .note-item button {
+                    background-color: #2c2c2e;
+                    color: #ffffff;
+                    border: 1px solid transparent;
+                    border-radius: 5px;
+                    padding: 0.5rem 1rem;
+                    font-size: 0.875rem;
+                    cursor: pointer;
+                    transition: border-color 0.3s;
+                }
+                .note-item button:hover {
+                    border-color: #ffffff;
+                }
+                .note-item button.archive {
+                    background-color: #2c2c2e;
+                    border-color: #e5e5ea;
+                }
+                .note-item button.archive:hover {
+                    border-color: #ffffff;
+                }
+                .note-item button.delete {
+                    background-color: #2c2c2e;
+                    border-color: #ffffff; 
+                }
+                .note-item button.delete:hover {
+                    border-color: #ffffff;
+                }
             </style>
             <div class="note-item">
                 <h3>${title}</h3>
@@ -172,6 +177,7 @@ class NoteItem extends HTMLElement {
                 bubbles: true,
                 composed: true
             }));
+            this.showPopup(archived ? 'Note unarchived successfully!' : 'Note archived successfully!');
         });
 
         this.shadowRoot.querySelector('.delete').addEventListener('click', () => {
@@ -182,9 +188,18 @@ class NoteItem extends HTMLElement {
             }));
         });
     }
+
+    showPopup(message) {
+        const popup = document.createElement('div');
+        popup.classList.add('popup');
+        popup.innerText = message;
+        document.body.appendChild(popup);
+        setTimeout(() => {
+            popup.remove();
+        }, 2000);
+    }
 }
 
-customElements.define('note-form', NoteForm);
 customElements.define('note-item', NoteItem);
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -193,8 +208,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const modal = document.getElementById('modal');
     const openModalButton = document.getElementById('openModal');
     const closeModalButton = document.getElementById('closeModal');
+    const searchInput = document.getElementById('searchInput');
 
-    // Ensure modal is initially hidden
     modal.style.display = 'none';
 
     openModalButton.addEventListener('click', () => {
@@ -211,7 +226,12 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    const notes = JSON.parse(localStorage.getItem('notes')) || [];
+    // Dummy data
+    const notes = [
+        { title: 'Meeting Notes', body: 'Discuss project timeline and deliverables.', date: '2024-07-30 10:00 AM', id: '1', archived: false },
+        { title: 'Grocery List', body: 'Buy milk, bread, and eggs.', date: '2024-07-31 09:00 AM', id: '2', archived: false },
+        { title: 'Workout Plan', body: 'Monday: Chest and Triceps, Tuesday: Back and Biceps.', date: '2024-07-29 08:00 AM', id: '3', archived: true }
+    ];
 
     const saveNotes = () => {
         localStorage.setItem('notes', JSON.stringify(notes));
@@ -222,20 +242,26 @@ document.addEventListener('DOMContentLoaded', () => {
         notesContainer.innerHTML = '';
         archivedNotesContainer.innerHTML = '';
 
+        const searchTerm = searchInput.value.toLowerCase();
+
         notes.forEach(note => {
-            const noteElement = document.createElement('note-item');
-            noteElement.setAttribute('title', note.title);
-            noteElement.setAttribute('body', note.body);
-            noteElement.setAttribute('date', note.date);
-            noteElement.setAttribute('id', note.id);
-            noteElement.setAttribute('archived', note.archived);
-            if (note.archived) {
-                archivedNotesContainer.appendChild(noteElement);
-            } else {
-                notesContainer.appendChild(noteElement);
+            if (note.title.toLowerCase().includes(searchTerm) || note.body.toLowerCase().includes(searchTerm)) {
+                const noteElement = document.createElement('note-item');
+                noteElement.setAttribute('title', note.title);
+                noteElement.setAttribute('body', note.body);
+                noteElement.setAttribute('date', note.date);
+                noteElement.setAttribute('id', note.id);
+                noteElement.setAttribute('archived', note.archived);
+                if (note.archived) {
+                    archivedNotesContainer.appendChild(noteElement);
+                } else {
+                    notesContainer.appendChild(noteElement);
+                }
             }
         });
     };
+
+    searchInput.addEventListener('input', renderNotes);
 
     document.addEventListener('add-note', (e) => {
         const { title, body } = e.detail;
@@ -259,15 +285,11 @@ document.addEventListener('DOMContentLoaded', () => {
     document.addEventListener('delete-note', (e) => {
         const { id } = e.detail;
         const noteIndex = notes.findIndex(note => note.id === id);
-        if (noteIndex > -1) {
+        if (noteIndex !== -1) {
             notes.splice(noteIndex, 1);
             saveNotes();
         }
     });
-
-    const closeModal = () => {
-        modal.style.display = 'none';
-    };
 
     renderNotes();
 });
