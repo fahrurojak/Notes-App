@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notes App</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" href="/public/favicon.ico" type="image/x-icon">
+</head>
+<body>
+    <div class="app-container">
+        <header class="app-header">
+            <h1>My Notes</h1>
+        </header>
+        <main class="app-main">
+            <button id="openModal" class="add-note-btn">Add New Note</button>
+            <section class="notes-section">
+                <h2>Active Notes</h2>
+                <div id="notes-container" class="notes-container"></div>
+            </section>
+            <section class="notes-section">
+                <h2>Archived Notes</h2>
+                <div id="archived-notes-container" class="notes-container"></div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Modal HTML -->
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <span class="close" id="closeModal">&times;</span>
+            <note-form></note-form>
+        </div>
+    </div>
+
+    <footer class="app-footer">
+        <div class="footer-content">
+            <div class="footer-links">
+                <a href="https://github.com/fahrurojak" target="_blank" class="footer-icon">
+                    <img src="./src/img/github.svg" alt="GitHub Logo">
+                </a>
+                <a href="https://www.linkedin.com/in/fahrurojak" target="_blank" class="footer-icon">
+                    <img src="./src/img/linkedin.svg" alt="LinkedIn Logo">
+                </a>
+                <a href="https://www.instagram.com/fahruphoto" target="_blank" class="footer-icon">
+                    <img src="./src/img/instagram.svg" alt="Instagram Logo">
+                </a>
+            </div>
+            <p class="footer-text">2024 © Fahru Rojak - Note App</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
