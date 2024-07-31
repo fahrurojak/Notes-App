@@ -57,7 +57,7 @@ body {
     background-color: #3a3a3c;
     color: #e5e5ea;
     font-size: 0.875rem;
-    width: 200px;
+    width: 160px;
     outline: none;
     transition: border-color 0.3s;
 }
@@ -86,8 +86,8 @@ body {
     color: #ffffff;
     border: 2px solid #ffffff;
     border-radius: 12px;
-    padding: 0.75rem 3rem;
-    font-size: 1rem;
+    padding: 0.5rem 1.5rem;
+    font-size: 0.875rem;
     cursor: pointer;
     margin: 0 auto;
     display: block;
@@ -113,35 +113,38 @@ body {
 .notes-container {
     display: flex;
     flex-wrap: wrap;
-    gap: 1rem;
+    gap: 0.75rem;
 }
 
 .note-item {
     background-color: #3a3a3c;
-    border-radius: 12px;
-    padding: 1rem;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
-    flex: 1 1 calc(33.333% - 1rem);
-    margin-bottom: 1rem;
+    border-radius: 8px;
+    padding: 0.5rem;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+    flex: 1 1 calc(33% - 0.75rem); /* Adjusted for smaller note size */
+    max-width: 250px;
+    margin-bottom: 0.75rem;
     display: flex;
     flex-direction: column;
-    transition: transform 0.3s, box-shadow 0.3s;
+    transition: transform 0.3s, box-shadow 0.3s, opacity 0.3s;
 }
 
 .note-item:hover {
-    transform: scale(1.02);
+    transform: scale(1.03);
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+    opacity: 0.9;
 }
 
 .note-item h3 {
     margin: 0;
-    font-size: 1.25rem;
+    font-size: 0.875rem;
     color: #e5e5ea;
 }
 
 .note-item p {
-    margin: 0.5rem 0;
+    margin: 0.25rem 0;
     color: #b9b9b9;
+    font-size: 0.75rem;
 }
 
 .note-item .note-controls {
@@ -154,9 +157,9 @@ body {
     background-color: #007aff;
     color: #ffffff;
     border: none;
-    border-radius: 12px;
-    padding: 0.5rem 1rem;
-    font-size: 0.875rem;
+    border-radius: 8px;
+    padding: 0.5rem 0.5rem;
+    font-size: 0.75rem;
     cursor: pointer;
     transition: background-color 0.3s, transform 0.2s;
 }
@@ -207,7 +210,7 @@ body {
     padding: 20px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
     width: 90%;
-    max-width: 500px;
+    max-width: 400px;
     position: relative;
     animation: modalSlideIn 0.3s ease-out;
 }
