@@ -5,14 +5,15 @@ class NoteForm extends HTMLElement {
         this.attachShadow({ mode: 'open' });
         this.shadowRoot.innerHTML = `
             <style>
-                .note-form {
+                   .note-form {
                     display: flex;
                     flex-direction: column;
                     gap: 0.5rem;
                     background-color: #ffffff;
                     border-radius: 8px;
                     padding: 1rem;
-                    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+                    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2), 
+                    0 24px 48px rgba(0, 0, 0, 0.2);
                 }
                 .note-form input, .note-form textarea {
                     border: 1px solid #ddd;
@@ -21,7 +22,7 @@ class NoteForm extends HTMLElement {
                     font-size: 1rem;
                 }
                 .note-form button {
-                    background-color: #007bff;
+                    background-color: #2c2c2e;
                     color: #ffffff;
                     border: none;
                     border-radius: 5px;
@@ -30,7 +31,9 @@ class NoteForm extends HTMLElement {
                     cursor: pointer;
                 }
                 .note-form button:hover {
-                    background-color: #0056b3;
+                    background-color:#2c2c2e;
+                    border-color: #e5e5ea; 
+                    
                 }
             </style>
             <form class="note-form">
@@ -94,53 +97,63 @@ class NoteItem extends HTMLElement {
         const archived = this.getAttribute('archived') === 'true';
 
         this.shadowRoot.innerHTML = `
-            <style>
+             <style>
                 .note-item {
-                    background-color: #ffffff;
-                    border-radius: 8px;
-                    padding: 1rem;
-                    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-                    flex: 1 1 calc(33.333% - 1rem);
-                    margin-bottom: 1rem;
-                    display: flex;
-                    flex-direction: column;
-                    transition: transform 0.3s;
-                }
-                .note-item:hover {
-                    transform: scale(1.05);
-                }
-                .note-item h3 {
-                    margin: 0;
-                    font-size: 1.25rem;
-                    color: #333;
-                }
-                .note-item p {
-                    margin: 0.5rem 0;
-                    color: #666;
-                }
-                .note-item .note-controls {
-                    margin-top: auto;
-                    display: flex;
-                    gap: 0.5rem;
-                }
-                .note-item button {
-                    background-color: #007bff;
-                    color: #ffffff;
-                    border: none;
-                    border-radius: 5px;
-                    padding: 0.5rem 1rem;
-                    font-size: 0.875rem;
-                    cursor: pointer;
-                }
-                .note-item button:hover {
-                    background-color: #0056b3;
-                }
-                .note-item button.archive {
-                    background-color: #ffc107;
-                }
-                .note-item button.archive:hover {
-                    background-color: #e0a800;
-                }
+    background-color: #2c2c2e;
+    border-radius: 8px;
+    padding: 1rem;
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2), 
+    0 24px 48px rgba(0, 0, 0, 0.2);
+    flex: 1 1 calc(33.333% - 1rem);
+    margin-bottom: 1rem;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.3s;
+}
+.note-item:hover {
+    transform: scale(1.05);
+}
+.note-item h3 {
+    margin: 0;
+    font-size: 1.25rem;
+    color: #ffffff;
+}
+.note-item p {
+    margin: 0.5rem 0;
+    color: #ffffff;
+}
+.note-item .note-controls {
+    margin-top: auto;
+    display: flex;
+    gap: 0.5rem;
+}
+.note-item button {
+    background-color: #2c2c2e;
+    color: #ffffff;
+    border: 1px solid transparent;
+    border-radius: 5px;
+    padding: 0.5rem 1rem;
+    font-size: 0.875rem;
+    cursor: pointer;
+    transition: border-color 0.3s;
+}
+.note-item button:hover {
+    border-color: #ffffff;
+}
+.note-item button.archive {
+    background-color: #2c2c2e;
+    border-color: #e5e5ea;
+}
+.note-item button.archive:hover {
+    border-color: #ffffff;
+}
+.note-item button.delete {
+    background-color: #2c2c2e;
+    border-color: #ffffff; 
+}
+.note-item button.delete:hover {
+    border-color: #ffffff;
+}
             </style>
             <div class="note-item">
                 <h3>${title}</h3>

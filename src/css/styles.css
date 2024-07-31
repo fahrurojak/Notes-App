@@ -2,21 +2,21 @@
 
 body {
     font-family: 'Roboto', sans-serif;
-    background-color: #1c1c1e; 
+    background-color: #1c1c1e;
     margin: 0;
     padding: 0;
-    color: #e5e5ea; 
+    color: #e5e5ea;
 }
 
 .app-container {
     display: flex;
     flex-direction: column;
     min-height: 100vh;
-    background-color: #2c2c2e; 
+    background-color: #2c2c2e;
     max-width: 900px;
     margin: 0 auto;
     border-radius: 20px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
     overflow: hidden;
     animation: slideIn 0.5s ease-out;
 }
@@ -33,33 +33,42 @@ body {
 }
 
 .app-header {
-    background-color: #2c2c2e; /* Dark background */
-    color: #e5e5ea; /* Light text for contrast */
+    background-color: #2c2c2e;
+    color: #e5e5ea;
     padding: 1rem;
     text-align: center;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4); /* Darker shadow */
-    border-bottom: 1px solid #3a3a3c; /* Slightly lighter border */
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+    border-bottom: 1px solid #ffffff; /* Line under the header */
 }
 
 .app-main {
     padding: 1rem 2rem;
 }
 
-.add-note-btn {
-    background-color: #007aff; /* iOS blue color */
-    color: #ffffff;
-    border: none;
-    border-radius: 12px;
-    padding: 0.75rem 1.5rem;
-    font-size: 1rem;
-    cursor: pointer;
+.welcome-text {
+    color: #e5e5ea;
+    font-size: 1.125rem;
     margin-bottom: 1rem;
-    transition: background-color 0.3s, transform 0.2s;
+    text-align: center;
+}
+
+.add-note-btn {
+    background-color: #2c2c2e;
+    color: #ffffff;
+    border: 2px solid #ffffff; /* Adds a white border */
+    border-radius: 12px;
+    padding: 0.75rem 3rem; /* Increased padding for a longer button */
+    font-size: 1rem; /* Font size */
+    cursor: pointer;
+    margin: 0 auto; /* Centers the button horizontally */
+    display: block; /* Ensures the button takes up full width when centered */
+    transition: background-color 0.3s, transform 0.2s, border-color 0.3s;
 }
 
 .add-note-btn:hover {
-    background-color: #0051a2;
+    background-color:#2c2c2e;
     transform: scale(1.05);
+    border-color: #e5e5ea; 
 }
 
 .notes-section {
@@ -69,7 +78,7 @@ body {
 .notes-section h2 {
     margin-bottom: 0.5rem;
     font-size: 1.5rem;
-    color: #e5e5ea; /* Light color */
+    color: #e5e5ea;
 }
 
 .notes-container {
@@ -79,10 +88,10 @@ body {
 }
 
 .note-item {
-    background-color: #3a3a3c; /* Dark background for notes */
+    background-color: #3a3a3c;
     border-radius: 12px;
     padding: 1rem;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3); /* Darker shadow */
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
     flex: 1 1 calc(33.333% - 1rem);
     margin-bottom: 1rem;
     display: flex;
@@ -98,12 +107,12 @@ body {
 .note-item h3 {
     margin: 0;
     font-size: 1.25rem;
-    color: #e5e5ea; /* Light text color */
+    color: #e5e5ea;
 }
 
 .note-item p {
     margin: 0.5rem 0;
-    color: #b9b9b9; /* Lighter text for details */
+    color: #b9b9b9;
 }
 
 .note-item .note-controls {
@@ -113,7 +122,7 @@ body {
 }
 
 .note-item button {
-    background-color: #007aff; /* iOS blue color */
+    background-color: #007aff;
     color: #ffffff;
     border: none;
     border-radius: 12px;
@@ -129,7 +138,7 @@ body {
 }
 
 .note-item button.archive {
-    background-color: #48484a; /* Dark gray for archived */
+    background-color: #48484a;
     color: #e5e5ea;
 }
 
@@ -147,7 +156,7 @@ body {
     width: 100%;
     height: 100%;
     overflow: auto;
-    background-color: rgba(0, 0, 0, 0.6); /* Darker backdrop */
+    background-color: rgba(0, 0, 0, 0.6);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -202,12 +211,12 @@ body {
 }
 
 .app-footer {
-    background-color: #2c2c2e; /* Dark background */
+    background-color: #2c2c2e;
     color: #e5e5ea;
     padding: 1rem;
     text-align: center;
-    box-shadow: 0 -1px 3px rgba(0, 0, 0, 0.4); /* Darker shadow */
-    border-top: 1px solid #3a3a3c; /* Slightly lighter border */
+    box-shadow: 0 -1px 3px rgba(0, 0, 0, 0.4);
+    border-top: 1px solid #ffffff;
 }
 
 .footer-content {
@@ -283,4 +292,5 @@ body {
     .footer-text {
         font-size: 0.75rem;
     }
+    
 }
