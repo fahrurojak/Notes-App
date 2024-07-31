@@ -2,28 +2,43 @@
 
 body {
     font-family: 'Roboto', sans-serif;
-    background-color: #f0f0f5;
+    background-color: #1c1c1e; /* Dark background color */
     margin: 0;
     padding: 0;
+    color: #e5e5ea; /* Light text color for readability */
 }
 
 .app-container {
     display: flex;
     flex-direction: column;
     min-height: 100vh;
-    background-color: #ffffff;
+    background-color: #2c2c2e; /* Darker background for the app container */
     max-width: 900px;
     margin: 0 auto;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Slightly darker shadow for dark mode */
     overflow: hidden;
+    animation: slideIn 0.5s ease-out;
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateY(-20px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
 }
 
 .app-header {
-    background-color: #202124;
-    color: #fff;
+    background-color: #2c2c2e; /* Dark background */
+    color: #e5e5ea; /* Light text for contrast */
     padding: 1rem;
     text-align: center;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4); /* Darker shadow */
+    border-bottom: 1px solid #3a3a3c; /* Slightly lighter border */
 }
 
 .app-main {
@@ -31,18 +46,20 @@ body {
 }
 
 .add-note-btn {
-    background-color: #007bff;
+    background-color: #007aff; /* iOS blue color */
     color: #ffffff;
     border: none;
-    border-radius: 5px;
-    padding: 0.75rem;
+    border-radius: 12px;
+    padding: 0.75rem 1.5rem;
     font-size: 1rem;
     cursor: pointer;
     margin-bottom: 1rem;
+    transition: background-color 0.3s, transform 0.2s;
 }
 
 .add-note-btn:hover {
-    background-color: #0056b3;
+    background-color: #0051a2;
+    transform: scale(1.05);
 }
 
 .notes-section {
@@ -52,7 +69,7 @@ body {
 .notes-section h2 {
     margin-bottom: 0.5rem;
     font-size: 1.5rem;
-    color: #333;
+    color: #e5e5ea; /* Light color */
 }
 
 .notes-container {
@@ -62,30 +79,31 @@ body {
 }
 
 .note-item {
-    background-color: #ffffff;
-    border-radius: 8px;
+    background-color: #3a3a3c; /* Dark background for notes */
+    border-radius: 12px;
     padding: 1rem;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3); /* Darker shadow */
     flex: 1 1 calc(33.333% - 1rem);
     margin-bottom: 1rem;
     display: flex;
     flex-direction: column;
-    transition: transform 0.3s;
+    transition: transform 0.3s, box-shadow 0.3s;
 }
 
 .note-item:hover {
-    transform: scale(1.05);
+    transform: scale(1.02);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
 }
 
 .note-item h3 {
     margin: 0;
     font-size: 1.25rem;
-    color: #333;
+    color: #e5e5ea; /* Light text color */
 }
 
 .note-item p {
     margin: 0.5rem 0;
-    color: #666;
+    color: #b9b9b9; /* Lighter text for details */
 }
 
 .note-item .note-controls {
@@ -95,25 +113,29 @@ body {
 }
 
 .note-item button {
-    background-color: #007bff;
+    background-color: #007aff; /* iOS blue color */
     color: #ffffff;
     border: none;
-    border-radius: 5px;
+    border-radius: 12px;
     padding: 0.5rem 1rem;
     font-size: 0.875rem;
     cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
 }
 
 .note-item button:hover {
-    background-color: #0056b3;
+    background-color: #0051a2;
+    transform: scale(1.05);
 }
 
 .note-item button.archive {
-    background-color: #ffc107;
+    background-color: #48484a; /* Dark gray for archived */
+    color: #e5e5ea;
 }
 
 .note-item button.archive:hover {
-    background-color: #e0a800;
+    background-color: #5a5a5c;
+    transform: scale(1.05);
 }
 
 .modal {
@@ -125,24 +147,34 @@ body {
     width: 100%;
     height: 100%;
     overflow: auto;
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: rgba(0, 0, 0, 0.6); /* Darker backdrop */
     display: flex;
     justify-content: center;
     align-items: center;
+    animation: fadeIn 0.3s ease-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
 }
 
 .modal-content {
-    background-color: #ffffff;
-    border-radius: 10px;
+    background-color: #2c2c2e;
+    border-radius: 12px;
     padding: 20px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
     width: 90%;
     max-width: 500px;
     position: relative;
-    animation: modalFadeIn 0.3s;
+    animation: modalSlideIn 0.3s ease-out;
 }
 
-@keyframes modalFadeIn {
+@keyframes modalSlideIn {
     from {
         opacity: 0;
         transform: scale(0.9);
@@ -160,19 +192,22 @@ body {
     top: 20px;
     font-size: 24px;
     cursor: pointer;
+    transition: color 0.3s;
 }
 
 .close:hover,
 .close:focus {
-    color: #000;
+    color: #ffffff;
     text-decoration: none;
 }
 
 .app-footer {
-    background-color: #202124;
-    color: #fff;
+    background-color: #2c2c2e; /* Dark background */
+    color: #e5e5ea;
     padding: 1rem;
     text-align: center;
+    box-shadow: 0 -1px 3px rgba(0, 0, 0, 0.4); /* Darker shadow */
+    border-top: 1px solid #3a3a3c; /* Slightly lighter border */
 }
 
 .footer-content {
@@ -193,12 +228,17 @@ body {
     width: 24px;
     height: 24px;
     vertical-align: middle;
+    transition: transform 0.3s;
+}
+
+.footer-icon img:hover {
+    transform: scale(1.1);
 }
 
 .footer-text {
     margin: 0;
     font-size: 0.875rem;
-    color: #ccc;
+    color: #b9b9b9;
 }
 
 @media (max-width: 768px) {
