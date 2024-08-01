@@ -56,7 +56,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const closeModalButton = document.getElementById('closeModal');
     const modal = document.getElementById('modal');
 
-    // Initially hide the modal
+    // Ensure the modal is hidden initially
     modal.style.display = 'none';
 
     openModalButton.addEventListener('click', () => {
