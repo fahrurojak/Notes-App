@@ -189,6 +189,7 @@ body {
     background-color: rgba(0, 0, 0, 0.6);
     justify-content: center;
     align-items: center;
+    animation: fadeIn 0.3s ease-out;
 }
 
 @keyframes fadeIn {
@@ -204,11 +205,12 @@ body {
     background-color: #2c2c2e;
     border-radius: 12px;
     padding: 20px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
     width: 90%;
     max-width: 400px;
     position: relative;
     animation: modalSlideIn 0.3s ease-out;
+    border: 1px solid white;
 }
 
 @keyframes modalSlideIn {
