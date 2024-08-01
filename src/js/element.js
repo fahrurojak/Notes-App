@@ -1,3 +1,58 @@
+class AppHeader extends HTMLElement {
+    constructor() {
+        super();
+        this.attachShadow({ mode: 'open' });
+    }
+
+    connectedCallback() {
+        this.render();
+    }
+
+    render() {
+        this.shadowRoot.innerHTML = `
+            <style>
+                /* Add styles for header */
+                header {
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    background-color: #2c2c2e;
+                    color: #e5e5ea;
+                    padding: 1rem;
+                    text-align: center;
+                    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+                    border-bottom: 1px solid #ffffff;
+                }
+                header h1 {
+                    margin: 0;
+                    font-size: 1.5rem;
+                }
+                header input {
+                    padding: 0.5rem;
+                    border: 1px solid #48484a;
+                    border-radius: 8px;
+                    background-color: #3a3a3c;
+                    color: #e5e5ea;
+                    font-size: 0.875rem;
+                    width: 100%;
+                    max-width: 300px;
+                    outline: none;
+                    transition: border-color 0.3s;
+                }
+                header input::placeholder {
+                    color: #b9b9b9;
+                }
+                header input:focus {
+                    border-color: #007aff;
+                }
+            </style>
+            <header>
+                <h1>My Notes</h1>
+                <input type="text" id="searchInput" class="search-input" placeholder="Search notes...">
+            </header>
+        `;
+    }
+}
 class NoteItem extends HTMLElement {
     constructor() {
         super();
@@ -201,5 +256,75 @@ class NoteForm extends HTMLElement {
     }
 }
 
+class NoteFilter extends HTMLElement {
+    constructor() {
+        super();
+        this.attachShadow({ mode: 'open' });
+    }
+
+    connectedCallback() {
+        this.render();
+    }
+
+    render() {
+        this.shadowRoot.innerHTML = `
+            <style>
+                .filter-container {
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    gap: 1rem;
+                }
+
+                .filter-input {
+                    padding: 0.5rem;
+                    border: 1px solid #48484a;
+                    border-radius: 8px;
+                    background-color: #3a3a3c;
+                    color: #e5e5ea;
+                    font-size: 0.875rem;
+                    outline: none;
+                }
+
+                .filter-input::placeholder {
+                    color: #b9b9b9;
+                }
+            </style>
+            <div class="filter-container">
+                <input type="text" id="filterInput" class="filter-input" placeholder="Search notes...">
+            </div>
+        `;
+
+        this.shadowRoot.querySelector('#filterInput').addEventListener('input', (event) => {
+            const query = event.target.value.toLowerCase();
+            const filteredNotes = notesData.filter(note =>
+                note.title.toLowerCase().includes(query) ||
+                note.body.toLowerCase().includes(query)
+            );
+
+            const notesContainer = document.getElementById('notes-container');
+            const archivedNotesContainer = document.getElementById('archived-notes-container');
+
+            notesContainer.innerHTML = '';
+            archivedNotesContainer.innerHTML = '';
+
+            filteredNotes.forEach(note => {
+                const noteElement = document.createElement('note-item');
+                noteElement.setAttribute('title', note.title);
+                noteElement.setAttribute('body', note.body);
+                noteElement.setAttribute('createdat', note.createdAt);
+                noteElement.setAttribute('archived', note.archived);
+
+                if (note.archived) {
+                    archivedNotesContainer.appendChild(noteElement);
+                } else {
+                    notesContainer.appendChild(noteElement);
+                }
+            });
+        });
+    }
+}
+customElements.define('app-header', AppHeader);
 customElements.define('note-item', NoteItem);
 customElements.define('note-form', NoteForm);
+customElements.define('note-filter', NoteFilter);
